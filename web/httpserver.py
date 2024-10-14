@@ -16,10 +16,10 @@ class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(b'<h2>Files:</h2><ul>')
             for filename in os.listdir('.'):
                 if os.path.isfile(filename):
-                    self.wfile.write(f'<li><a href="/download/{filename}">{filename}</a></li>'.encode())
+                    self.wfile.write(f'<li><a href="/{filename}">{filename}</a></li>'.encode())
             self.wfile.write(b'</ul></body></html>')
-        elif self.path.startswith('/download/'):
-            filename = self.path[len('/download/'):]
+        else:
+            filename = self.path.lstrip('/')
             if os.path.isfile(filename):
                 self.send_response(200)
                 self.send_header('Content-Disposition', f'attachment; filename="{filename}"')
@@ -30,10 +30,6 @@ class CustomHTTPRequestHandler(BaseHTTPRequestHandler):
                 self.send_response(404)
                 self.end_headers()
                 self.wfile.write(b'File not found')
-        else:
-            self.send_response(404)
-            self.end_headers()
-            self.wfile.write(b'Not found')
 
     def do_POST(self):
         content_type, _ = cgi.parse_header(self.headers.get('Content-Type'))
@@ -64,7 +60,6 @@ def run_server(port):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Simple HTTP server for file upload and download')
-    parser.add_argument('-p', '--port', type=int, default=8000, help='Port number (default: 8000)')
+    parser.add_argument('-p', '--port', type=int, default=80, help='Port number (default: 80)')
     args = parser.parse_args()
     run_server(args.port)
-
