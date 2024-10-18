@@ -1,7 +1,5 @@
 # Red Team Cheat Sheet
 
----
-
 # Web
 
 ## Directory Traversal
