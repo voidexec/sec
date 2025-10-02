@@ -1,6 +1,5 @@
 #!/bin/bash
-
-
+# Migrating from Debian 12 to Kali Linux (such as on a Cloud-Based Debian VPS)
 
 # Update package list and install necessary tools
 sudo apt -y update
