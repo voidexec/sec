@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 # Update package list and install necessary tools
 sudo apt -y update
 sudo apt -y install wget gnupg dirmngr
