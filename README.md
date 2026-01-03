@@ -13,7 +13,6 @@ gci C:\Users -i '**root.txt**' -File -Recurse -ea SilentlyContinue
 # References
 
 | Attacker IP | 10.4.4.4 |
-| --- | --- |
 | Target IP | 10.9.9.9 |
 | Target Hostname | dc01 |
 | Target Domain | target.com |
