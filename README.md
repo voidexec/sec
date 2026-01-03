@@ -99,35 +99,22 @@ rustscan -a 10.9.9.9 --ulimit 5000 -- -sC -sV -oN rustscan.txt
 
 Common Usernames and Passwords
 
-| Usernames | Passwords |
-| --- | --- |
-| admin
-administrator
-anonymous
-backup
-developer
-user
-guest
-test
-service
-john
-ftp
-rdp
-smb
-ssh | admin
-admin123
-backup
-ftp
-guest
-letmein
-password
-password123
-qwerty
-root
-service
-smb
-user
-welcome |
+| Usernames      | Passwords     |
+|----------------|---------------|
+| admin          | admin         |
+| administrator  | admin123      |
+| anonymous      | backup        |
+| backup         | ftp           |
+| developer      | guest         |
+| user           | letmein       |
+| guest          | password      |
+| test           | password123   |
+| service        | qwerty        |
+| john           | root          |
+| ftp            | service       |
+| rdp            | smb           |
+| smb            | user          |
+| ssh            | welcome       |
 
 Usernames: [https://github.com/danielmiessler/SecLists/tree/master/Usernames](https://github.com/danielmiessler/SecLists/tree/master/Usernames)
 
