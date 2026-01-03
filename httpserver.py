@@ -38,7 +38,7 @@ class Handler(SimpleHTTPRequestHandler):
         self.wfile.write(b"</ul>")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Simple HTTP Server for Upload/Download")
+    parser = argparse.ArgumentParser(description="Simple HTTP Upload/Download Server")
     parser.add_argument("-p", "--port", type=int, default=8000, help="Port to listen on (default: 8000)")
     args = parser.parse_args()
 
